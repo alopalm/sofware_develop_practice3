@@ -1,4 +1,4 @@
-# Iris Project: Species Classification - Practice 3
+# Iris Project: Species Classification 
 
 📖 **Documentation:** https://alopalm.github.io/sofware_develop_practice3/
 
