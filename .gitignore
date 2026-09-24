@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+.ipynb_checkpoints/
+.env
+
+data/
+models/
+*.joblib
+*.pkl
+*.pt
+*.ckpt
+
+docs_html/
+public/
