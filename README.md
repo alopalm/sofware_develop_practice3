@@ -10,7 +10,8 @@ Andrea Lopez Almela
 This project implements a small, well-structured machine learning pipeline that
 classifies iris flowers into one of three species (*setosa*, *versicolor*,
 *virginica*) based on four numeric measurements: sepal length, sepal width,
-petal length, and petal width.
+petal length, and petal width. It also includes an interactive web application built with **Gradios** for data exploration, model training, and evaluation.
+
 
 
 ## Dataset
@@ -24,9 +25,10 @@ You can check the origin and details of the dataset at the official repository:
 
 
 
-
 ## Project structure
 
+- `app.py` — Main Gradio interactive web application
+- `requirements.txt` — Project runtime dependencies for deployment
 - `data/` — dataset download script (`get_data.py`) and the generated `iris.csv`
 - `src/` — source code: `train.py` (training pipeline) and `evaluate.py` (evaluation pipeline)
 - `notebooks/` — `exploration.ipynb`, the exploratory data analysis notebook
@@ -48,6 +50,11 @@ uv sync
 This creates a `.venv/` folder and installs every dependency listed in
 `pyproject.toml` (both the runtime dependencies like `pandas` and
 `scikit-learn`, and the development dependencies like `pdoc` and `jupyter`).
+Alternatively, if you are deploying or running the web application directly, you can install dependencies using:
+
+```
+pip install -r requirements.txt
+```
 
 ## Usage
 
@@ -73,14 +80,23 @@ uv run python src/evaluate.py
 This generates `reports/figures/confusion_matrix.png` and
 `reports/figures/calibration_curves.png`.
 
-**4. Explore the dataset (optional, for EDA):**
+**4. Run the Interactive Gradio Web Application:**
+```
+python app.py
+```
+This launches a local web server featuring three interactive tabs:
+- **Data Exploration:** View descriptive statistics and interactive feature scatter plots.
+- **Training Interface:** Adjust hyperparameters (test size, max iterations) and train the model dynamically.
+- **Model Evaluation:** Evaluate the trained model performance and display the confusion matrix.
+
+**5. Explore the dataset (optional, for EDA):**
 ```
 uv run jupyter notebook notebooks/exploration.ipynb
 ```
 Run all cells to regenerate the exploratory figures in `reports/figures/`
 (histograms, pairplot, correlation heatmap).
 
-**5. Regenerate the PDF report (optional):**
+**6. Regenerate the PDF report (optional):**
 ```
 cd reports
 pandoc report.md -o report.pdf --pdf-engine=wkhtmltopdf
