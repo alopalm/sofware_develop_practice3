@@ -1,4 +1,4 @@
-# Iris Project — Species Classification - Pract 3
+# Iris Project — Species Classification - Pract 4
 
 **Authors:** 
 Irene Ferrandez Colomer
