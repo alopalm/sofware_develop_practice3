@@ -17,6 +17,13 @@ petal length, and petal width.
 
 We use the **Iris dataset**, a classic multi-class classification dataset with
 150 samples.
+You can check the origin and details of the dataset at the official repository:
+(https://archive.ics.uci.edu/dataset/53/iris)
+
+
+
+
+
 
 ## Project structure
 
@@ -84,7 +91,9 @@ cd ..
 
 Every module and function is documented with Google-style docstrings
 (description, Args, Returns). Browsable HTML documentation is generated
-from these docstrings using pdoc:
+from these docstrings using pdoc.
+You can check the complete technical documentation of the code generated with pdoc at the following link:
+(https://alopalm.github.io/sofware_develop_practice3/)
 
 ```
 uv run pdoc src/train.py src/evaluate.py -o docs/ --docformat google
