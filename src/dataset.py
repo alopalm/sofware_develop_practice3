@@ -11,6 +11,12 @@ class IrisDataset:
     """Class responsible for loading, preprocessing, and splitting the Iris dataset from CSV."""
 
     def __init__(self, test_size: float = 0.25, random_state: int = 42):
+        """Initializes the IrisDataset loader.
+
+        Args:
+            - **test_size** (float): Proportion of the dataset to include in the test split.
+            - **random_state** (int): Controls the shuffling applied to the data before applying the split.
+        """
         self.test_size = test_size
         self.random_state = random_state
         self.scaler = StandardScaler()
@@ -19,10 +25,10 @@ class IrisDataset:
         """Loads the Iris dataset from CSV, normalizes features, and splits into train/test sets.
 
         Args:
-            filepath (str): Path to the CSV file.
+            - **filepath** (str): Path to the CSV file.
 
         Returns:
-            X_train, X_test, y_train, y_test: Processed data ready for training.
+            - **X_train_scaled**, **X_test_scaled**, **y_train**, **y_test**: Processed data ready for training.
         """
         df = pd.read_csv(filepath)
         X = df[FEATURES]

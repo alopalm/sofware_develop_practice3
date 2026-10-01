@@ -5,6 +5,8 @@ from src.model import LogisticRegressionModel
 
 
 def main():
+    """Main execution function that loads data, trains the model, evaluates performance, and saves it.
+    """
     print("Loading and preprocessing data from CSV...")
     dataset = IrisDataset(test_size=0.25, random_state=42)
     X_train, X_test, y_train, y_test = dataset.get_data("data/iris.csv")
