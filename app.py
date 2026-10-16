@@ -28,7 +28,6 @@ def explore_data():
 
 def train_model(test_size, max_iter):
     try:
-        # Convertir asegurando que maneje comas o puntos
         if isinstance(test_size, str):
             test_size = float(test_size.replace(',', '.'))
         else:
@@ -47,7 +46,7 @@ def train_model(test_size, max_iter):
         os.makedirs("models", exist_ok=True)
         model.save("models/model.joblib")
         
-        return f"Training completed successfully.\n- Train Accuracy: {train_acc:.4f}\n- Test Accuracy: {test_acc:.4f}"
+        return f"Training completed successfully.\nTrain Accuracy: {train_acc:.4f}\nTest Accuracy: {test_acc:.4f}"
     except Exception as e:
         return f"Error during training: {e}"
 
@@ -103,4 +102,4 @@ with gr.Blocks() as demo:
             btn_eval.click(fn=evaluate_model, outputs=[out_eval_text, out_eval_plot])
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(server_name="0.0.0.0", server_port=7860)
