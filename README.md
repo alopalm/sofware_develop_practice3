@@ -170,3 +170,7 @@ You can pull and run the latest image directly from Docker Hub:
 ```bash
 docker pull ireneferrandez/sofware_develop_practice3:latest
 docker run -p 7860:7860 ireneferrandez/sofware_develop_practice3:latest
+
+
+Once you run the command, the terminal will start the Gradio server and output local network links. Open your web browser and go to:
+http://localhost:7860
