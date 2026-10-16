@@ -1,4 +1,4 @@
-# Iris Project: Species Classification 
+# Iris Project — Species Classification - Pract 4
 
 📖 **Documentation:** https://alopalm.github.io/sofware_develop_practice3/
 
@@ -9,20 +9,34 @@
 This project implements a small, well-structured machine learning pipeline that
 classifies iris flowers into one of three species (*setosa*, *versicolor*,
 *virginica*) based on four numeric measurements: sepal length, sepal width,
-petal length, and petal width.
+petal length, and petal width. It also includes an interactive web application built with **Gradios** for data exploration, model training, and evaluation.
+
 
 ## Dataset
 
-Iris dataset (Fisher, 1936), a classic multi-class classification dataset with
-150 samples. It is available at the
-[UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/53/iris)
-and bundled with scikit-learn.
+We use the **Iris dataset**, a classic multi-class classification dataset with
+150 samples.
+You can check the origin and details of the dataset at the official repository:
+(https://archive.ics.uci.edu/dataset/53/iris)
+
+
+
+
 
 The CSV is **not** stored in the repository. It is generated in `data/iris.csv`
 by `data/get_data.py` (see Usage), with the columns `sepal_length`,
 `sepal_width`, `petal_length`, `petal_width`, `target` and `species`.
 
-## Project structure
+- `app.py` — Main Gradio interactive web application
+- `requirements.txt` — Project runtime dependencies for deployment
+- `data/` — dataset download script (`get_data.py`) and the generated `iris.csv`
+- `src/` — source code: `train.py` (training pipeline) and `evaluate.py` (evaluation pipeline)
+- `notebooks/` — `exploration.ipynb`, the exploratory data analysis notebook
+- `models/` — trained model artifact (`model.joblib`), generated after running `train.py`
+- `reports/` — `report.md` / `report.pdf` (performance report) and `figures/` (all generated PNG charts)
+- `docs/` — HTML documentation generated automatically by pdoc
+- `pyproject.toml` and `uv.lock` — project dependencies, managed with uv
+- `README.md` — this file
 
 - `data/`: dataset download script (`get_data.py`) and the generated `iris.csv` (not versioned)
 - `src/`: source code
@@ -50,6 +64,11 @@ uv sync
 This creates a `.venv/` folder and installs every dependency listed in
 `pyproject.toml` (both the runtime dependencies like `pandas` and
 `scikit-learn`, and the development dependencies like `pdoc` and `jupyter`).
+Alternatively, if you are deploying or running the web application directly, you can install dependencies using:
+
+```
+pip install -r requirements.txt
+```
 
 ## Usage
 
@@ -71,13 +90,29 @@ This trains a logistic regression classifier and saves it to
 
 **3. Explore the data and evaluate the model:**
 ```
-uv run jupyter lab notebooks/exploration.ipynb
+uv run python src/evaluate.py
+```
+This generates `reports/figures/confusion_matrix.png` and
+`reports/figures/calibration_curves.png`.
+
+**4. Run the Interactive Gradio Web Application:**
+```
+python app.py
+```
+This launches a local web server featuring three interactive tabs:
+- **Data Exploration:** View descriptive statistics and interactive feature scatter plots.
+- **Training Interface:** Adjust hyperparameters (test size, max iterations) and train the model dynamically.
+- **Model Evaluation:** Evaluate the trained model performance and display the confusion matrix.
+
+**5. Explore the dataset (optional, for EDA):**
+```
+uv run jupyter notebook notebooks/exploration.ipynb
 ```
 Run all cells to regenerate the exploratory figures in `reports/figures/`
 (histograms, pairplot, correlation heatmap) and, using the trained model and
 the test data, the classification report and the confusion matrix.
 
-**4. Regenerate the PDF report (optional):**
+**6. Regenerate the PDF report (optional):**
 ```
 cd reports
 pandoc report.md -o report.pdf --pdf-engine=wkhtmltopdf
@@ -92,7 +127,10 @@ Actions every time a change to `src/`, `docs/` or `README.md` is pushed to `main
 **https://alopalm.github.io/sofware_develop_practice3/**
 
 Every module and function is documented with Google-style docstrings
-(description, Args, Returns). To build the HTML documentation locally:
+(description, Args, Returns). Browsable HTML documentation is generated
+from these docstrings using pdoc.
+You can check the complete technical documentation of the code generated with pdoc at the following link:
+(https://alopalm.github.io/sofware_develop_practice3/)
 
 ```
 uv run pdoc src -o docs_html --docformat google
@@ -119,15 +157,16 @@ between *versicolor* and *virginica*, the two most visually similar species,
 as shown both in the exploratory pairplot and in the confusion matrix. Full
 details and figure interpretations are available in `reports/report.pdf`.
 
-## Contributing
+## Docker Deployment
 
-1. Create a branch from `develop`: `git checkout -b feature/short-name`.
-2. Make small, focused commits with descriptive messages.
-3. Push the branch and open a Pull Request towards `develop`.
-4. Once the Pull Request is reviewed, merge it. `develop` is merged into `main` for each release.
+This project includes a Docker container to easily run the interactive demonstration without needing to manually configure the environment.
 
-Never commit API keys, passwords, personal data, datasets or trained models.
+### Prerequisites
+* Make sure you have [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed on your system.
 
-## License
+### Run the container from Docker Hub
+You can pull and run the latest image directly from Docker Hub:
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE).
+```bash
+docker pull ireneferrandez/sofware_develop_practice3:latest
+docker run -p 7860:7860 ireneferrandez/sofware_develop_practice3:latest
