@@ -135,3 +135,17 @@ set (25% of the data, stratified split). The main source of error is confusion
 between *versicolor* and *virginica*, the two most visually similar species,
 as shown both in the exploratory pairplot and in the confusion matrix. Full
 details and figure interpretations are available in `reports/report.pdf`.
+
+## Docker Deployment
+
+This project includes a Docker container to easily run the interactive demonstration without needing to manually configure the environment.
+
+### Prerequisites
+* Make sure you have [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed on your system.
+
+### Run the container from Docker Hub
+You can pull and run the latest image directly from Docker Hub:
+
+```bash
+docker pull ireneferrandez/sofware_develop_practice3:latest
+docker run -p 7860:7860 ireneferrandez/sofware_develop_practice3:latest
