@@ -5,7 +5,7 @@ __pycache__/
 .ipynb_checkpoints/
 .env
 
-data/
+data/iris.csv
 models/
 *.joblib
 *.pkl

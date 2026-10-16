@@ -1,9 +1,8 @@
 # Iris Project — Species Classification - Pract 4
 
-**Authors:** 
-Irene Ferrandez Colomer
-Andrea Lopez Almela
+📖 **Documentation:** https://alopalm.github.io/sofware_develop_practice3/
 
+**Authors:** Irene Ferrandez Colomer, Andrea Lopez Almela
 
 ## Overview
 
@@ -11,7 +10,6 @@ This project implements a small, well-structured machine learning pipeline that
 classifies iris flowers into one of three species (*setosa*, *versicolor*,
 *virginica*) based on four numeric measurements: sepal length, sepal width,
 petal length, and petal width. It also includes an interactive web application built with **Gradios** for data exploration, model training, and evaluation.
-
 
 
 ## Dataset
@@ -25,7 +23,9 @@ You can check the origin and details of the dataset at the official repository:
 
 
 
-## Project structure
+The CSV is **not** stored in the repository. It is generated in `data/iris.csv`
+by `data/get_data.py` (see Usage), with the columns `sepal_length`,
+`sepal_width`, `petal_length`, `petal_width`, `target` and `species`.
 
 - `app.py` — Main Gradio interactive web application
 - `requirements.txt` — Project runtime dependencies for deployment
@@ -38,12 +38,26 @@ You can check the origin and details of the dataset at the official repository:
 - `pyproject.toml` and `uv.lock` — project dependencies, managed with uv
 - `README.md` — this file
 
+- `data/`: dataset download script (`get_data.py`) and the generated `iris.csv` (not versioned)
+- `src/`: source code
+  - `dataset.py`: `IrisDataset`, loads, preprocesses and splits the data
+  - `model.py`: `LogisticRegressionModel`, wrapper around scikit-learn's `LogisticRegression`
+  - `train.py`: training pipeline that connects dataset and model
+- `notebooks/`: `exploration.ipynb`, exploratory data analysis and evaluation of the trained model
+- `models/`: trained model artifact (`model.joblib`), generated after running the training (not versioned)
+- `reports/`: `report.md` / `report.pdf` (performance report) and `figures/` (generated PNG charts)
+- `.github/workflows/docs.yml`: publishes the documentation with GitHub Pages
+- `pyproject.toml` and `uv.lock`: project dependencies, managed with uv
+- `LICENSE`: MIT license
+- `README.md`: this file
 
 ## Installation
 
-Clone or unzip this project, then from its root folder run:
+Clone the repository and, from its root folder, run:
 
 ```
+git clone https://github.com/alopalm/sofware_develop_practice3.git
+cd sofware_develop_practice3
 uv sync
 ```
 
@@ -64,16 +78,17 @@ Run each step from the project root, in this order:
 ```
 uv run python data/get_data.py
 ```
-This saves `data/iris.csv`.
+This saves `data/iris.csv`. If the file is missing, the training step
+generates it automatically.
 
 **2. Train the model:**
 ```
-uv run python src/train.py
+uv run python -m src.train
 ```
 This trains a logistic regression classifier and saves it to
-`models/model.joblib`. It also prints the train/test accuracy to the console.
+`models/model.joblib`.
 
-**3. Evaluate the model and generate performance figures:**
+**3. Explore the data and evaluate the model:**
 ```
 uv run python src/evaluate.py
 ```
@@ -94,7 +109,8 @@ This launches a local web server featuring three interactive tabs:
 uv run jupyter notebook notebooks/exploration.ipynb
 ```
 Run all cells to regenerate the exploratory figures in `reports/figures/`
-(histograms, pairplot, correlation heatmap).
+(histograms, pairplot, correlation heatmap) and, using the trained model and
+the test data, the classification report and the confusion matrix.
 
 **6. Regenerate the PDF report (optional):**
 ```
@@ -105,6 +121,11 @@ cd ..
 
 ## Documentation
 
+The documentation is published online and updated automatically by GitHub
+Actions every time a change to `src/`, `docs/` or `README.md` is pushed to `main`:
+
+**https://alopalm.github.io/sofware_develop_practice3/**
+
 Every module and function is documented with Google-style docstrings
 (description, Args, Returns). Browsable HTML documentation is generated
 from these docstrings using pdoc.
@@ -112,10 +133,10 @@ You can check the complete technical documentation of the code generated with pd
 (https://alopalm.github.io/sofware_develop_practice3/)
 
 ```
-uv run pdoc src/train.py src/evaluate.py -o docs/ --docformat google
+uv run pdoc src -o docs_html --docformat google
 ```
 
-Open `docs/index.html` in a browser to navigate the documentation.
+Then open `docs_html/index.html` in a browser.
 
 ## Dependency management
 
